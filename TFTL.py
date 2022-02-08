@@ -5,9 +5,10 @@ Autor: Mateusz Wasyluk
 
 from tkinter import *
 from tkinter.ttk import *
+import random
 
 class Hero:
-    archtype = []
+    archetype = []
     age = 0
     attributes = {'Ciało': 0,
                   'Technologia': 0,
@@ -40,6 +41,7 @@ class Kid:
     drive = []
     pride = []
     anchor = []
+    skills = []
 
 Bookworm = Kid()
 Bookworm.iconicItem = ['Piesek Leszek',
@@ -56,6 +58,9 @@ Bookworm.anchor = ['Mama',
                    'Tata',
                    'Nauczyciel',
                    'Miejscowy pisarz']
+Bookworm.skills = ['Obliczanie',
+                   'Śledztwo',
+                   'Zrozumienie']
 
 Geek = Kid()
 Geek.iconicItem = ['Komputer',
@@ -71,6 +76,9 @@ Geek.pride = ['Gdy jest katastrofa, nigdy się nie cofam.',
 Geek.anchor = ['Matka',
                'Ojciec',
                'Właściciel sklepu z komiksami']
+Geek.skills = ['Obliczanie',
+               'Programowanie',
+               'Zrozumienie']
 
 Hick = Kid()
 Hick.iconicItem = ['Owczarek niemiecki',
@@ -87,6 +95,9 @@ Hick.anchor = ['Tata',
                'Mama',
                'Znajomy myśliwy',
                'Instruktor jeździectwa']
+Hick.skills = ['Siła',
+               'Poruszanie się',
+               'Majsterkowanie']
 
 Jock = Kid()
 Jock.iconicItem = ['Kij bejsbolowy',
@@ -104,6 +115,9 @@ Jock.anchor = ['Ojciec',
                'Trener drużyny',
                'Brat',
                'Siostra']
+Jock.skills = ['Siła',
+               'Poruszanie się',
+               'Kontakt']
 
 Popular = Kid()
 Popular.iconicItem = ['Paczka gum do rzucia',
@@ -121,6 +135,9 @@ Popular.anchor = ['Starsze rodzeństwo',
                   'Mama',
                   'Tata',
                   'Sławny przyjaciel rodziny']
+Popular.skills = ['Kontakt',
+                  'Urok',
+                  'Dowodzenie']
 
 Rocker = Kid()
 Rocker.iconicItem = ['Boombox',
@@ -137,6 +154,9 @@ Rocker.anchor = ['Nauczyciel muzyki',
                  'Starszy brat',
                  'Starsza siostra',
                  'Ten gość ze sklepu muzycznego']
+Rocker.skills = ['Poruszanie się',
+                 'Urok',
+                 'Empatia']
 
 Troublemaker = Kid()
 Troublemaker.iconicItem = ['Zapalniczka i papierosy',
@@ -154,6 +174,9 @@ Troublemaker.anchor = ['Szkolny woźny',
                        'Szkolna woźna',
                        'Szkolny pedagog',
                        'Babcia']
+Troublemaker.skills = ['Siła',
+                       'Skradanie',
+                       'Dowodzenie']
 
 Weirdo = Kid()
 Weirdo.iconicItem = ['Brzytwa',
@@ -170,9 +193,12 @@ Weirdo.anchor = ['Babcia',
                  'Rodzic innego Dzieciaka',
                  'Sąsiad',
                  'Sąsiadka']
+Weirdo.skills = ['Skradanie',
+                 'Śledztwo',
+                 'Empatia']
 
 class Window(Frame):
-    archtype = ['Mól książkowy',
+    archetype = ['Mól książkowy',
                 'Geek komputerowy',
                 'Prowincjusz',
                 'Osiłek',
@@ -187,7 +213,24 @@ class Window(Frame):
         self.parent = parent
         self.initialize()
 
+    def generate(self):
+        hero = Hero()
+        hero.archetype = self.archetype[random.randint(0, len(self.archetype))]
+        hero.age = random.randint(10,15)
 
+        attribVal = [0,0,0,0]
+        while(sum(attribVal) != hero.age):
+            attribVal[0] = random.randint(1, 5)
+            attribVal[1] = random.randint(1, 5)
+            attribVal[2] = random.randint(1, 5)
+            attribVal[3] = random.randint(1, 5)
+
+        hero.attributes = {'Ciało': attribVal[0],
+                           'Technologia': attribVal[1],
+                           'Serce': attribVal[2],
+                           'Umysł': attribVal[3]}
+
+        # zakończone na rzplanowaniu podziału punktów w skille
 
     def initialize(self):
         self.parent.title("TFTL Generator Postaci")
