@@ -2,10 +2,10 @@
 Generator postaci bohaterów do gry fabularnej Tales From The Loop
 Autor: Mateusz Wasyluk
 '''
-
+from copy import copy
 from tkinter import *
 from tkinter.ttk import *
-import random
+import os, random
 
 class Hero:
     archetype = []
@@ -213,24 +213,94 @@ class Window(Frame):
         self.parent = parent
         self.initialize()
 
-    def generate(self):
-        hero = Hero()
-        hero.archetype = self.archetype[random.randint(0, len(self.archetype))]
-        hero.age = random.randint(10,15)
+    def genArchetype(self):
+        archetype = random.choice(self.archetype)
+        return archetype
 
-        attribVal = [0,0,0,0]
-        while(sum(attribVal) != hero.age):
+    def genAge(self):
+        return random.randint(10,15)
+
+    def genAttribValues(self, attribVal, age):
+        while (sum(attribVal) != age):
             attribVal[0] = random.randint(1, 5)
             attribVal[1] = random.randint(1, 5)
             attribVal[2] = random.randint(1, 5)
             attribVal[3] = random.randint(1, 5)
+        return attribVal
 
+    def genSkillPoints(self, sum, maxSkillPoint):
+        if sum > 0:
+            points = random.randint(0, maxSkillPoint)
+        else:
+            points = 0
+
+        return points
+
+    def genName(self):
+        total_bytes = os.stat('names.txt').st_size
+        random_point = random.randint(0, total_bytes)
+        file = open('names.txt', encoding='utf-8')
+        file.seek(random_point)
+        file.readline()
+        return file.readline()
+
+    def generate(self):
+        # initialize hero and archetype object
+        global archetypeHelper
+        hero = Hero()
+
+        # randomize archetype and copy archetype object
+        hero.archetype = self.genArchetype()
+        if hero.archetype == 'Mól książkowy':
+            archetypeHelper = copy(Bookworm)
+        elif hero.archetype == 'Geek komputerowy':
+            archetypeHelper = copy(Geek)
+        elif hero.archetype == 'Prowincjusz':
+            archetypeHelper = copy(Hick)
+        elif hero.archetype == 'Osiłek':
+            archetypeHelper = copy(Jock)
+        elif hero.archetype == 'Popularny dzieciak':
+            archetypeHelper = copy(Hick)
+        elif hero.archetype == 'Rocker':
+            archetypeHelper = copy(Rocker)
+        elif hero.archetype == 'Urwis':
+            archetypeHelper = copy(Troublemaker)
+        elif hero.archetype == 'Dziwak':
+            archetypeHelper = copy(Weirdo)
+
+        # set Hero's age
+        hero.age = self.genAge()
+
+        # randomize Hero's attribute points
+        attribVal = self.genAttribValues()
         hero.attributes = {'Ciało': attribVal[0],
                            'Technologia': attribVal[1],
                            'Serce': attribVal[2],
                            'Umysł': attribVal[3]}
 
-        # zakończone na rzplanowaniu podziału punktów w skille
+        # set Hero's luck points
+        hero.luckPoints = 15 - hero.age
+
+        # randomize Hero's skill points
+        skillSum = 10
+        for key in hero.skills.keys():
+            if key in archetypeHelper.skills:
+                skillPoints = self.genSkillPoints(skillSum, 3)
+                skillSum -= skillPoints
+            else:
+                skillPoints = self.genSkillPoints(skillSum, 1)
+                skillSum -= skillPoints
+
+        # randomize iconic item, problem, drive, pride and anchor
+        hero.iconicItem = random.choice(archetypeHelper.iconicItem)
+        hero.problem = random.choice(archetypeHelper.problem)
+        hero.motivation = random.choice(archetypeHelper.drive)
+        hero.pride = random.choice(archetypeHelper.pride)
+        hero.anchor = random.choice(archetypeHelper.anchor)
+
+        # randomize name
+        hero.name = self.genName()
+
 
     def initialize(self):
         self.parent.title("TFTL Generator Postaci")
