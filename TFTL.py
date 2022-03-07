@@ -209,6 +209,26 @@ class Window(Frame):
     def __init__(self,parent):
         super().__init__(parent)
 
+        self.randomizerButton = Button(self, text="Generator Postaci", command=self.generate)
+        self.creatorButton = Button(self, text="Kreator Postaci")
+
+        self.archLabel = Label(self)
+        self.archEntry = Combobox(self)
+
+        self.ageLabel = Label(self)
+        self.ageEntry = Combobox(self)
+
+        self.attribBodyLabel = Label(self)
+        self.attribBodyEntry = Entry(self)
+        self.attribTechLabel = Label(self)
+        self.attribTechEntry = Entry(self)
+        self.attribHeartLabel = Label(self)
+        self.attribHeartEntry = Entry(self)
+        self.attribMindLabel = Label(self)
+        self.attribMindEntry = Entry(self)
+
+
+
         self.style = Style()
         self.parent = parent
         self.initialize()
@@ -236,10 +256,10 @@ class Window(Frame):
 
         return points
 
-    def genName(self):
-        total_bytes = os.stat('names.txt').st_size
+    def genFromFile(self, file_name):
+        total_bytes = os.stat(file_name).st_size
         random_point = random.randint(0, total_bytes)
-        file = open('names.txt', encoding='utf-8')
+        file = open(file_name, encoding='utf-8')
         file.seek(random_point)
         file.readline()
         return file.readline()
@@ -272,7 +292,8 @@ class Window(Frame):
         hero.age = self.genAge()
 
         # randomize Hero's attribute points
-        attribVal = self.genAttribValues()
+        attribVal = [0, 0, 0, 0]
+        attribVal = self.genAttribValues(attribVal, hero.age)
         hero.attributes = {'Ciało': attribVal[0],
                            'Technologia': attribVal[1],
                            'Serce': attribVal[2],
@@ -299,13 +320,64 @@ class Window(Frame):
         hero.anchor = random.choice(archetypeHelper.anchor)
 
         # randomize name
-        hero.name = self.genName()
+        hero.name = self.genFromFile('names.txt')
 
+        # randomize song
+        hero.favSong = self.genFromFile('songs.txt')
+
+        print(hero.archetype)
+        print(hero.age)
+        print(hero.attributes)
+        print(hero.luckPoints)
+        print(hero.skills)
+        print(hero.iconicItem)
+        print(hero.problem)
+        print(hero.motivation)
+        print(hero.pride)
+        print(hero.anchor)
+        print(hero.name)
+        print(hero.favSong)
 
     def initialize(self):
         self.parent.title("TFTL Generator Postaci")
         self.style.theme_use('clam')
         self.style.configure('.', font=('Helvetica', 12))
+        self.pack(fill=BOTH, expand=1)
+        self.columnconfigure(4,weight=1)
+
+        self.randomizerButton.grid(row=1, column=0, pady=10, padx=10, sticky=W + N)
+        self.creatorButton.grid(row=1, column=1, pady=10, padx=10, sticky=W + N)
+
+        self.archLabel.configure(text='Archetyp')
+        self.archLabel.grid(row=3, column=0, pady=0, padx=10, sticky=W)
+        self.archEntry.configure(values=self.archetype)
+        self.archEntry.current(0)
+        self.archEntry.grid(row=4, column=0, pady=0, padx=10, sticky=W+N)
+
+        self.ageLabel.configure(text='Wiek')
+        self.ageLabel.grid(row=5, column=0, pady=0, padx=10, sticky=W)
+        self.ageEntry.configure(values='10 11 12 13 14 15')
+        self.ageEntry.current(0)
+        self.ageEntry.grid(row=6, column=0, pady=0, padx=10, sticky=W+N)
+
+        self.attribBodyLabel.configure(text='Ciało')
+        self.attribBodyLabel.grid(row=7, column=0, pady=0, padx=10, sticky=W)
+        self.attribBodyEntry.grid(row=8, column=0, pady=0, padx=10, sticky=W+N)
+
+        self.attribTechLabel.configure(text='Technologia')
+        self.attribTechLabel.grid(row=9, column=0, pady=0, padx=10, sticky=W)
+        self.attribTechEntry.grid(row=10, column=0, pady=0, padx=10, sticky=W+N)
+
+        self.attribHeartLabel.configure(text='Serce')
+        self.attribHeartLabel.grid(row=11, column=0, pady=0, padx=10, sticky=W)
+        self.attribHeartEntry.grid(row=12, column=0, pady=0, padx=10, sticky=W+N)
+
+        self.attribMindLabel.configure(text='Umysł')
+        self.attribMindLabel.grid(row=13, column=0, pady=0, padx=10, sticky=W)
+        self.attribMindEntry.grid(row=14, column=0, pady=0, padx=10, sticky=W+N)
+
+
+
 
 def main():
     gui = Tk()
