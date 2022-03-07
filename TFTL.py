@@ -211,21 +211,22 @@ class Window(Frame):
 
         self.randomizerButton = Button(self, text="Generator Postaci", command=self.generate)
         self.creatorButton = Button(self, text="Kreator Postaci")
+        self.mainSeparator = Separator(self, orient=HORIZONTAL)
 
         self.archLabel = Label(self)
         self.archEntry = Combobox(self)
 
         self.ageLabel = Label(self)
-        self.ageEntry = Combobox(self)
+        self.ageEntry = Spinbox(self)
 
         self.attribBodyLabel = Label(self)
-        self.attribBodyEntry = Entry(self)
+        self.attribBodyEntry = Spinbox(self)
         self.attribTechLabel = Label(self)
-        self.attribTechEntry = Entry(self)
+        self.attribTechEntry = Spinbox(self)
         self.attribHeartLabel = Label(self)
-        self.attribHeartEntry = Entry(self)
+        self.attribHeartEntry = Spinbox(self)
         self.attribMindLabel = Label(self)
-        self.attribMindEntry = Entry(self)
+        self.attribMindEntry = Spinbox(self)
 
 
 
@@ -341,40 +342,46 @@ class Window(Frame):
     def initialize(self):
         self.parent.title("TFTL Generator Postaci")
         self.style.theme_use('clam')
-        self.style.configure('.', font=('Helvetica', 12))
+        self.style.configure('.', font=('Helvetica', 15))
         self.pack(fill=BOTH, expand=1)
         self.columnconfigure(4,weight=1)
 
         self.randomizerButton.grid(row=1, column=0, pady=10, padx=10, sticky=W + N)
-        self.creatorButton.grid(row=1, column=1, pady=10, padx=10, sticky=W + N)
+        self.creatorButton.grid(row=1, column=3, pady=10, padx=10, sticky=E + N)
+        self.mainSeparator.grid(row=2, column=0, columnspan=4, padx=10, sticky=N+S+E+W)
+
+
+
 
         self.archLabel.configure(text='Archetyp')
         self.archLabel.grid(row=3, column=0, pady=0, padx=10, sticky=W)
-        self.archEntry.configure(values=self.archetype)
-        self.archEntry.current(0)
-        self.archEntry.grid(row=4, column=0, pady=0, padx=10, sticky=W+N)
+        self.archEntry.configure(values=self.archetype, font=('Helvetica',12), width=17)
+        self.archEntry.grid(row=3, column=1, pady=0, padx=10, sticky=W+N)
 
         self.ageLabel.configure(text='Wiek')
         self.ageLabel.grid(row=5, column=0, pady=0, padx=10, sticky=W)
-        self.ageEntry.configure(values='10 11 12 13 14 15')
-        self.ageEntry.current(0)
-        self.ageEntry.grid(row=6, column=0, pady=0, padx=10, sticky=W+N)
+        self.ageEntry.configure(from_=10, to=15, wrap=True, font=('Helvetica',12), width=2)
+        self.ageEntry.grid(row=5, column=1, pady=0, padx=10, sticky=W+N)
 
         self.attribBodyLabel.configure(text='Ciało')
         self.attribBodyLabel.grid(row=7, column=0, pady=0, padx=10, sticky=W)
-        self.attribBodyEntry.grid(row=8, column=0, pady=0, padx=10, sticky=W+N)
+        self.attribBodyEntry.grid(row=7, column=1, pady=0, padx=10, sticky=W+N)
+        self.attribBodyEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica',12), width=2)
 
         self.attribTechLabel.configure(text='Technologia')
         self.attribTechLabel.grid(row=9, column=0, pady=0, padx=10, sticky=W)
-        self.attribTechEntry.grid(row=10, column=0, pady=0, padx=10, sticky=W+N)
+        self.attribTechEntry.grid(row=9, column=1, pady=0, padx=10, sticky=W+N)
+        self.attribTechEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica',12), width=2)
 
         self.attribHeartLabel.configure(text='Serce')
         self.attribHeartLabel.grid(row=11, column=0, pady=0, padx=10, sticky=W)
-        self.attribHeartEntry.grid(row=12, column=0, pady=0, padx=10, sticky=W+N)
+        self.attribHeartEntry.grid(row=11, column=1, pady=0, padx=10, sticky=W+N)
+        self.attribHeartEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica',12), width=2)
 
         self.attribMindLabel.configure(text='Umysł')
         self.attribMindLabel.grid(row=13, column=0, pady=0, padx=10, sticky=W)
-        self.attribMindEntry.grid(row=14, column=0, pady=0, padx=10, sticky=W+N)
+        self.attribMindEntry.grid(row=13, column=1, pady=0, padx=10, sticky=W+N)
+        self.attribMindEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica',12), width=2)
 
 
 
