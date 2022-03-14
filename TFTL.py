@@ -7,33 +7,9 @@ from tkinter import *
 from tkinter.ttk import *
 import os, random
 
-class Hero:
-    archetype = []
-    age = 0
-    attributes = {'Ciało': 0,
-                  'Technologia': 0,
-                  'Serce': 0,
-                  'Umysł': 0}
-    luckPoints = 0
-    skills = {'Skradanie': 0,
-              'Siła': 0,
-              'Poruszanie się': 0,
-              'Majsterkowanie': 0,
-              'Programowanie': 0,
-              'Obliczanie': 0,
-              'Kontakt': 0,
-              'Urok': 0,
-              'Dowodzenie': 0,
-              'Śledztwo': 0,
-              'Zrozumienie': 0,
-              'Empatia': 0}
-    iconicItem = ''
-    problem = ''
-    motivation = ''
-    pride = ''
-    anchor = ''
-    name = ''
-    favSong = ''
+from hero import Hero
+from pdfGenerate import pdfGenerator
+
 
 class Kid:
     iconicItem = []
@@ -377,23 +353,26 @@ class Window(Frame):
         hero.anchor = random.choice(archetypeHelper.anchor)
 
         # randomize name
-        hero.name = self.genFromFile('names.txt')
+        tempName = self.genFromFile('names.txt')
+        hero.name = tempName[:-1]
 
         # randomize song
         hero.favSong = self.genFromFile('songs.txt')
 
-        print(hero.archetype)
-        print(hero.age)
-        print(hero.attributes)
-        print(hero.luckPoints)
-        print(hero.skills)
-        print(hero.iconicItem)
-        print(hero.problem)
-        print(hero.motivation)
-        print(hero.pride)
-        print(hero.anchor)
-        print(hero.name)
-        print(hero.favSong)
+        # print(hero.archetype)
+        # print(hero.age)
+        # print(hero.attributes)
+        # print(hero.luckPoints)
+        # print(hero.skills)
+        # print(hero.iconicItem)
+        # print(hero.problem)
+        # print(hero.motivation)
+        # print(hero.pride)
+        # print(hero.anchor)
+        # print(hero.name)
+        # print(hero.favSong)
+
+        pdfGenerator(hero)
 
     def initialize(self):
         self.parent.title("TFTL Generator Postaci")
