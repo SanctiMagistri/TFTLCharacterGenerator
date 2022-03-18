@@ -282,8 +282,10 @@ class Window(Frame):
         return attribVal
 
     def genSkillPoints(self, sum, maxSkillPoint):
-        if sum > 0:
+        if sum >= maxSkillPoint:
             points = random.randint(0, maxSkillPoint)
+        elif sum < maxSkillPoint:
+            points = random.randint(0, sum)
         else:
             points = 0
 
@@ -341,9 +343,22 @@ class Window(Frame):
             if key in archetypeHelper.skills:
                 skillPoints = self.genSkillPoints(skillSum, 3)
                 skillSum -= skillPoints
-            else:
+                hero.skills[key] = skillPoints
+            elif key not in archetypeHelper.skills:
                 skillPoints = self.genSkillPoints(skillSum, 1)
                 skillSum -= skillPoints
+                hero.skills[key] = skillPoints
+        if skillSum > 0:
+            for key in hero.skills.keys():
+                if skillSum != 0:
+                    if key in archetypeHelper.skills and hero.skills[key] < 3:
+                        skillSum -= 1
+                        hero.skills[key] += 1
+                    elif key not in archetypeHelper.skills and hero.skills[key] < 1:
+                        skillSum -= 1
+                        hero.skills[key] += 1
+                else:
+                    break
 
         # randomize iconic item, problem, drive, pride and anchor
         hero.iconicItem = random.choice(archetypeHelper.iconicItem)
@@ -357,13 +372,15 @@ class Window(Frame):
         hero.name = tempName[:-1]
 
         # randomize song
-        hero.favSong = self.genFromFile('songs.txt')
+        tempFavSong = self.genFromFile('songs.txt')
+        hero.favSong = tempFavSong[:-1]
 
         # print(hero.archetype)
         # print(hero.age)
         # print(hero.attributes)
         # print(hero.luckPoints)
         # print(hero.skills)
+        # print(archetypeHelper.skills)
         # print(hero.iconicItem)
         # print(hero.problem)
         # print(hero.motivation)
@@ -530,7 +547,7 @@ class Window(Frame):
 
 def main():
     gui = Tk()
-    gui.geometry('1280x720')
+    gui.geometry('1000x500')
     Window(gui)
     gui.mainloop()
 
