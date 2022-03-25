@@ -20,7 +20,7 @@ class Hero:
               'Empatia': 0}
     iconicItem = ''
     problem = ''
-    motivation = ''
+    drive = ''
     pride = ''
     anchor = ''
     name = ''

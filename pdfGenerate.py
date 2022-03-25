@@ -60,7 +60,7 @@ def pdfGenerator(hero):
     pdf.cell(2, 10)
     pdf.set_fill_color(255, 241, 218)
     pdf.set_font_size(7)
-    pdf.cell(90, 10, f'Motywacja: {hero.motivation}', border=True, fill=True)
+    pdf.cell(90, 10, f'Motywacja: {hero.drive}', border=True, fill=True)
     pdf.set_fill_color(255, 241, 218)
     pdf.cell(50, 10, f'Opoka: {hero.anchor}', border=True, fill=True, ln=True)
 
@@ -352,8 +352,4 @@ def pdfGenerator(hero):
     pdf.set_text_color(0, 0, 0)
     pdf.cell(140, 10, border=True, fill=True, ln=True)
 
-
-
     pdf.output('Karta_Postaci.pdf')
-    # print(Hero.name)
-# pdfGenerator()
