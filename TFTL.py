@@ -145,6 +145,38 @@ class Window(Frame):
         self.songLabel.configure(text='Ulubiona piosenka')
         self.topdfButton.configure(text='Generuj PDF')
 
+    def validate_attrib(self):
+        attrib = int(self.attribBodyEntry.get())
+        attrib += int(self.attribTechEntry.get())
+        attrib += int(self.attribHeartEntry.get())
+        attrib += int(self.attribMindEntry.get())
+
+        if attrib != int(self.ageEntry.get()):
+            self.nextButton1.configure(state='disabled')
+        else:
+            self.nextButton1.configure(state='enabled')
+
+    def validate_skill(self):
+
+
+        skill = int(self.skillSneakEntry.get())
+        skill += int(self.skillForceEntry.get())
+        skill += int(self.skillMoveEntry.get())
+        skill += int(self.skillTinkerEntry.get())
+        skill += int(self.skillProgramEntry.get())
+        skill += int(self.skillCalculateEntry.get())
+        skill += int(self.skillContactEntry.get())
+        skill += int(self.skillCharmEntry.get())
+        skill += int(self.skillLeadEntry.get())
+        skill += int(self.skillInvestigateEntry.get())
+        skill += int(self.skillComprehendEntry.get())
+        skill += int(self.skillEmpathizeEntry.get())
+
+        if skill != 10:
+            self.nextButton2.configure(state='disabled')
+        else:
+            self.nextButton2.configure(state='enabled')
+
     def show_page1(self):
         self.hide_page2()
         self.hide_page3()
@@ -154,28 +186,35 @@ class Window(Frame):
         self.archEntry.configure(values=character.generator.archetype, font=('Helvetica', 12), width=17)
         self.ageLabel.grid(row=4, column=0, pady=0, padx=10, sticky=W)
         self.ageEntry.grid(row=4, column=1, pady=0, padx=10, sticky=W + N)
-        self.ageEntry.configure(from_=10, to=15, wrap=True, font=('Helvetica', 12), width=2)
+        self.ageEntry.configure(from_=10, to=15, wrap=True, font=('Helvetica', 12), width=2,
+                                command=self.validate_attrib)
 
         self.attribLabel.grid(row=5, column=0, sticky=E)
 
         self.attribBodyLabel.grid(row=6, column=0, pady=0, padx=10, sticky=W)
         self.attribBodyEntry.grid(row=6, column=1, pady=0, padx=10, sticky=W + N)
-        self.attribBodyEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.attribBodyEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2,
+            command=self.validate_attrib)
 
         self.attribTechLabel.grid(row=7, column=0, pady=0, padx=10, sticky=W)
         self.attribTechEntry.grid(row=7, column=1, pady=0, padx=10, sticky=W + N)
-        self.attribTechEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.attribTechEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2,
+            command=self.validate_attrib)
 
         self.attribHeartLabel.grid(row=8, column=0, pady=0, padx=10, sticky=W)
         self.attribHeartEntry.grid(row=8, column=1, pady=0, padx=10, sticky=W + N)
-        self.attribHeartEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.attribHeartEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2,
+            command=self.validate_attrib)
 
         self.attribMindLabel.grid(row=9, column=0, pady=0, padx=10, sticky=W)
         self.attribMindEntry.grid(row=9, column=1, pady=0, padx=10, sticky=W + N)
-        self.attribMindEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.attribMindEntry.configure(from_=1, to=5, wrap=True, font=('Helvetica', 12), width=2,
+            command=self.validate_attrib)
 
-        self.nextButton1.configure(text='Dalej', command=self.creator_page2)
+        self.nextButton1.configure(text='Dalej', command=self.creator_page2, state='disabled')
         self.nextButton1.grid(row=16, column=1, pady=30, padx=10, sticky=E + N + S)
+
+        self.validate_attrib()
 
     def hide_page1(self):
         self.archLabel.grid_forget()
@@ -237,8 +276,13 @@ class Window(Frame):
 
         self.prevButton1.configure(text='Wróć', command=self.show_page1)
         self.prevButton1.grid(row=16, column=0, pady=30, padx=10, sticky=W + N + S)
-        self.nextButton2.configure(text="Dalej", command=self.show_page3)
+        self.nextButton2.configure(text="Dalej", command=self.show_page3, state='disabled')
         self.nextButton2.grid(row=16, column=1, pady=30, padx=10, sticky=W + N + S)
+
+
+
+        self.validate_skill()
+
 
     def hide_page2(self):
         self.skillLabel.grid_forget()
@@ -272,7 +316,6 @@ class Window(Frame):
     def creator_page2(self):
         global archetypeHelper
         self.get_values_p1()
-        self.show_page2()
 
         self.skillSneakEntry.set(0)
         self.skillForceEntry.set(0)
@@ -286,6 +329,8 @@ class Window(Frame):
         self.skillInvestigateEntry.set(0)
         self.skillComprehendEntry.set(0)
         self.skillEmpathizeEntry.set(0)
+
+        self.show_page2()
 
         if self.hero.archetype == 'Mól książkowy':
             archetypeHelper = copy(Bookworm)
@@ -305,64 +350,88 @@ class Window(Frame):
             archetypeHelper = copy(Weirdo)
 
         if 'Skradanie' in archetypeHelper.skills:
-            self.skillSneakEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillSneakEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
         else:
-            self.skillSneakEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillSneakEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
 
         if 'Siła' in archetypeHelper.skills:
-            self.skillForceEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillForceEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
         else:
-            self.skillForceEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillForceEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
 
         if 'Poruszanie się' in archetypeHelper.skills:
-            self.skillMoveEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillMoveEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                          command=self.validate_skill)
         else:
-            self.skillMoveEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillMoveEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                          command=self.validate_skill)
 
         if 'Majsterkowanie' in archetypeHelper.skills:
-            self.skillTinkerEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillTinkerEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                            command=self.validate_skill)
         else:
-            self.skillTinkerEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillTinkerEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                            command=self.validate_skill)
 
         if 'Programowanie' in archetypeHelper.skills:
-            self.skillProgramEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillProgramEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                             command=self.validate_skill)
         else:
-            self.skillProgramEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillProgramEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                             command=self.validate_skill)
 
         if 'Obliczanie' in archetypeHelper.skills:
-            self.skillCalculateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillCalculateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                               command=self.validate_skill)
         else:
-            self.skillCalculateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillCalculateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                               command=self.validate_skill)
 
         if 'Kontakt' in archetypeHelper.skills:
-            self.skillContactEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillContactEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                             command=self.validate_skill)
         else:
-            self.skillContactEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillContactEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                             command=self.validate_skill)
 
         if 'Urok' in archetypeHelper.skills:
-            self.skillCharmEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillCharmEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
         else:
-            self.skillCharmEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillCharmEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                           command=self.validate_skill)
 
         if 'Dowodzenie' in archetypeHelper.skills:
-            self.skillLeadEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillLeadEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                          command=self.validate_skill)
         else:
-            self.skillLeadEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillLeadEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                          command=self.validate_skill)
 
         if 'Śledztwo' in archetypeHelper.skills:
-            self.skillInvestigateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillInvestigateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                                 command=self.validate_skill)
         else:
-            self.skillInvestigateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillInvestigateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                                 command=self.validate_skill)
 
         if 'Zrozumienie' in archetypeHelper.skills:
-            self.skillComprehendEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillComprehendEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                                command=self.validate_skill)
         else:
-            self.skillComprehendEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillComprehendEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                                command=self.validate_skill)
 
         if 'Empatia' in archetypeHelper.skills:
-            self.skillEmpathizeEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillEmpathizeEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
+                                               command=self.validate_skill)
         else:
-            self.skillEmpathizeEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+            self.skillEmpathizeEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
+                                               command=self.validate_skill)
 
     def show_page3(self):
         self.hide_page2()
