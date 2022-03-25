@@ -1,5 +1,4 @@
 from fpdf import FPDF
-from hero import Hero
 
 class PDF(FPDF):
     def header(self):
@@ -8,9 +7,7 @@ class PDF(FPDF):
         self.ln(20)
 
 def pdfGenerator(hero):
-    # Layout ('P','L')
-    # Unit ('mm','cm','in')
-    # format ('A3', 'A4' (default), 'A5', 'Letter', Legal, (100,150)
+
     pdf = PDF('P', 'mm', 'A4')
     pdf.add_page()
 
