@@ -2,14 +2,12 @@
 Generator postaci bohaterów do gry fabularnej Tales From The Loop
 Autor: Mateusz Wasyluk
 '''
-
-
-
+import random
 from tkinter import *
 from tkinter.ttk import *
 
 import character.generator
-from character.classes import Hero, Bookworm, Geek, Hick, Jock, Popular, Rocker, Troublemaker, Weirdo
+from character.classes import Hero, Kid, Bookworm, Geek, Hick, Jock, Popular, Rocker, Troublemaker, Weirdo
 from copy import copy
 from pdfGenerate import pdfGenerator
 
@@ -18,6 +16,7 @@ class Window(Frame):
         super().__init__(parent)
 
         self.hero = Hero()
+        self.archetypeHelper = Kid()
 
         self.randomizerButton = Button(self, text="Generator Postaci", command=character.generator.generate)
 
@@ -91,6 +90,15 @@ class Window(Frame):
         self.nextButton1 = Button(self)
         self.nextButton2 = Button(self)
 
+        self.arrows = PhotoImage(file='arrows2.png')
+        self.randomizeItem = Button(self, width=2, image=self.arrows)
+        self.randomizeProblem = Button(self, width=2, image=self.arrows)
+        self.randomizeDrive = Button(self, width=2, image=self.arrows)
+        self.randomizePride = Button(self, width=2, image=self.arrows)
+        self.randomizeAnchor = Button(self, width=2, image=self.arrows)
+        self.randomizeName = Button(self, width=2, image=self.arrows)
+        self.randomizeSong = Button(self, width=2, image=self.arrows)
+
         self.style = Style()
         self.parent = parent
         self.creatorButton = Button(self, text="Kreator Postaci", command=self.start_creator)
@@ -101,10 +109,10 @@ class Window(Frame):
         self.style.theme_use('clam')
         self.style.configure('.', font=('Helvetica', 15))
         self.pack(fill=BOTH, expand=1)
-        self.columnconfigure(9,weight=1)
+        self.columnconfigure(3,weight=1)
 
         self.randomizerButton.grid(row=1, column=0, pady=10, padx=10, sticky=W + N)
-        self.creatorButton.grid(row=1, column=1, pady=10, padx=10, sticky=E + N)
+        self.creatorButton.grid(row=1, column=1, pady=10, padx=10, sticky=W + N)
         self.mainSeparator.grid(row=2, column=0, columnspan=3, padx=10, sticky=N + S + E + W)
 
         self.archLabel.configure(text='Archetyp')
@@ -144,6 +152,14 @@ class Window(Frame):
         self.nameLabel.configure(text='Imię')
         self.songLabel.configure(text='Ulubiona piosenka')
         self.topdfButton.configure(text='Generuj PDF')
+
+        # self.randomizeItem.configure(text='Losuj')
+        # self.randomizeProblem.configure(text='Losuj')
+        # self.randomizeDrive.configure(text='Losuj')
+        # self.randomizePride.configure(text='Losuj')
+        # self.randomizeAnchor.configure(text='Losuj')
+        # self.randomizeName.configure(text='Losuj')
+        # self.randomizeSong.configure(text='Losuj')
 
     def validate_attrib(self):
         attrib = int(self.attribBodyEntry.get())
@@ -212,8 +228,8 @@ class Window(Frame):
             command=self.validate_attrib)
 
         self.nextButton1.configure(text='Dalej', command=self.creator_page2, state='disabled')
-        self.nextButton1.grid(row=16, column=1, pady=30, padx=10, sticky=E + N + S)
-
+        # self.nextButton1.grid(row=16, column=1, pady=30, padx=10, sticky=E + N + S)
+        self.nextButton1.place(x=270, y=445)
         self.validate_attrib()
 
     def hide_page1(self):
@@ -230,7 +246,7 @@ class Window(Frame):
         self.attribHeartEntry.grid_forget()
         self.attribMindLabel.grid_forget()
         self.attribMindEntry.grid_forget()
-        self.nextButton1.grid_forget()
+        self.nextButton1.place_forget()
 
     def show_page2(self):
         self.hide_page1()
@@ -275,14 +291,15 @@ class Window(Frame):
         self.skillEmpathizeEntry.grid(row=15, column=1, padx=10, sticky=W)
 
         self.prevButton1.configure(text='Wróć', command=self.show_page1)
-        self.prevButton1.grid(row=16, column=0, pady=30, padx=10, sticky=W + N + S)
+        # self.prevButton1.grid(row=16, column=0, pady=30, padx=10, sticky=W + N + S)
+        self.prevButton1.place(x=10, y=445)
         self.nextButton2.configure(text="Dalej", command=self.show_page3, state='disabled')
-        self.nextButton2.grid(row=16, column=1, pady=30, padx=10, sticky=W + N + S)
+        self.nextButton2.place(x=270, y=445)
+        # self.nextButton2.grid(row=16, column=1, pady=30, padx=10, sticky=W + N + S)
 
 
 
         self.validate_skill()
-
 
     def hide_page2(self):
         self.skillLabel.grid_forget()
@@ -310,12 +327,13 @@ class Window(Frame):
         self.skillComprehendEntry.grid_forget()
         self.skillEmpathizeLabel.grid_forget()
         self.skillEmpathizeEntry.grid_forget()
-        self.prevButton1.grid_forget()
-        self.nextButton2.grid_forget()
+        self.prevButton1.place_forget()
+        self.nextButton2.place_forget()
 
     def creator_page2(self):
-        global archetypeHelper
         self.get_values_p1()
+
+
 
         self.skillSneakEntry.set(0)
         self.skillForceEntry.set(0)
@@ -333,100 +351,100 @@ class Window(Frame):
         self.show_page2()
 
         if self.hero.archetype == 'Mól książkowy':
-            archetypeHelper = copy(Bookworm)
+            self.archetypeHelper = copy(Bookworm)
         elif self.hero.archetype == 'Geek komputerowy':
-            archetypeHelper = copy(Geek)
+            self.archetypeHelper = copy(Geek)
         elif self.hero.archetype == 'Prowincjusz':
-            archetypeHelper = copy(Hick)
+            self.archetypeHelper = copy(Hick)
         elif self.hero.archetype == 'Osiłek':
-            archetypeHelper = copy(Jock)
+            self.archetypeHelper = copy(Jock)
         elif self.hero.archetype == 'Popularny dzieciak':
-            archetypeHelper = copy(Popular)
+            self.archetypeHelper = copy(Popular)
         elif self.hero.archetype == 'Rocker':
-            archetypeHelper = copy(Rocker)
+            self.archetypeHelper = copy(Rocker)
         elif self.hero.archetype == 'Urwis':
-            archetypeHelper = copy(Troublemaker)
+            self.archetypeHelper = copy(Troublemaker)
         elif self.hero.archetype == 'Dziwak':
-            archetypeHelper = copy(Weirdo)
+            self.archetypeHelper = copy(Weirdo)
 
-        if 'Skradanie' in archetypeHelper.skills:
+        if 'Skradanie' in self.archetypeHelper.skills:
             self.skillSneakEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
         else:
             self.skillSneakEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
 
-        if 'Siła' in archetypeHelper.skills:
+        if 'Siła' in self.archetypeHelper.skills:
             self.skillForceEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
         else:
             self.skillForceEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
 
-        if 'Poruszanie się' in archetypeHelper.skills:
+        if 'Poruszanie się' in self.archetypeHelper.skills:
             self.skillMoveEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                           command=self.validate_skill)
         else:
             self.skillMoveEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                           command=self.validate_skill)
 
-        if 'Majsterkowanie' in archetypeHelper.skills:
+        if 'Majsterkowanie' in self.archetypeHelper.skills:
             self.skillTinkerEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                             command=self.validate_skill)
         else:
             self.skillTinkerEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                             command=self.validate_skill)
 
-        if 'Programowanie' in archetypeHelper.skills:
+        if 'Programowanie' in self.archetypeHelper.skills:
             self.skillProgramEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                              command=self.validate_skill)
         else:
             self.skillProgramEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                              command=self.validate_skill)
 
-        if 'Obliczanie' in archetypeHelper.skills:
+        if 'Obliczanie' in self.archetypeHelper.skills:
             self.skillCalculateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                                command=self.validate_skill)
         else:
             self.skillCalculateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                                command=self.validate_skill)
 
-        if 'Kontakt' in archetypeHelper.skills:
+        if 'Kontakt' in self.archetypeHelper.skills:
             self.skillContactEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                              command=self.validate_skill)
         else:
             self.skillContactEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                              command=self.validate_skill)
 
-        if 'Urok' in archetypeHelper.skills:
+        if 'Urok' in self.archetypeHelper.skills:
             self.skillCharmEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
         else:
             self.skillCharmEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                            command=self.validate_skill)
 
-        if 'Dowodzenie' in archetypeHelper.skills:
+        if 'Dowodzenie' in self.archetypeHelper.skills:
             self.skillLeadEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                           command=self.validate_skill)
         else:
             self.skillLeadEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                           command=self.validate_skill)
 
-        if 'Śledztwo' in archetypeHelper.skills:
+        if 'Śledztwo' in self.archetypeHelper.skills:
             self.skillInvestigateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                                  command=self.validate_skill)
         else:
             self.skillInvestigateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                                  command=self.validate_skill)
 
-        if 'Zrozumienie' in archetypeHelper.skills:
+        if 'Zrozumienie' in self.archetypeHelper.skills:
             self.skillComprehendEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                                 command=self.validate_skill)
         else:
             self.skillComprehendEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2,
                                                 command=self.validate_skill)
 
-        if 'Empatia' in archetypeHelper.skills:
+        if 'Empatia' in self.archetypeHelper.skills:
             self.skillEmpathizeEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2,
                                                command=self.validate_skill)
         else:
@@ -458,9 +476,27 @@ class Window(Frame):
         self.songEntry.grid(row=9, column=1, padx=10, sticky=W)
 
         self.prevButton2.configure(text='Wróć', command=self.show_page2)
-        self.prevButton2.grid(row=10, column=0, padx=10, sticky=W)
+        # self.prevButton2.grid(row=10, column=0, padx=10, sticky=W)
+        self.prevButton2.place(x=10, y=445)
         self.topdfButton.configure(command=self.create_pdf)
-        self.topdfButton.grid(row=10, column=1, sticky=E)
+        # self.topdfButton.grid(row=10, column=1, sticky=W)
+        self.topdfButton.place(x=270, y=445)
+
+        self.randomizeItem.grid(row=3, column=2, padx=0, sticky=W)
+        self.randomizeProblem.grid(row=4, column=2, padx=0, sticky=W)
+        self.randomizeDrive.grid(row=5, column=2, padx=0, sticky=W)
+        self.randomizePride.grid(row=6, column=2, padx=0, sticky=W)
+        self.randomizeAnchor.grid(row=7, column=2, padx=0, sticky=W)
+        self.randomizeName.grid(row=8, column=2, padx=0, sticky=W)
+        self.randomizeSong.grid(row=9, column=2, padx=0, sticky=W)
+
+        self.randomizeItem.configure(command=self.randItem)
+        self.randomizeProblem.configure(command=self.randProblem)
+        self.randomizeDrive.configure(command=self.randDrive)
+        self.randomizePride.configure(command=self.randPride)
+        self.randomizeAnchor.configure(command=self.randAnchor)
+        self.randomizeName.configure(command=self.randName)
+        self.randomizeSong.configure(command=self.randSong)
 
     def hide_page3(self):
         self.itemLabel.grid_forget()
@@ -477,8 +513,15 @@ class Window(Frame):
         self.nameEntry.grid_forget()
         self.songLabel.grid_forget()
         self.songEntry.grid_forget()
-        self.prevButton2.grid_forget()
-        self.topdfButton.grid_forget()
+        self.prevButton2.place_forget()
+        self.topdfButton.place_forget()
+        self.randomizeItem.grid_forget()
+        self.randomizeProblem.grid_forget()
+        self.randomizeDrive.grid_forget()
+        self.randomizePride.grid_forget()
+        self.randomizeAnchor.grid_forget()
+        self.randomizeName.grid_forget()
+        self.randomizeSong.grid_forget()
 
     def creator_page3(self):
         self.show_page3()
@@ -517,6 +560,36 @@ class Window(Frame):
         self.hero.name = self.nameEntry.get()
         self.hero.favSong = self.songEntry.get()
 
+    def randItem(self):
+        self.itemEntry.delete(0,END)
+        self.itemEntry.insert(0, random.choice(self.archetypeHelper.iconicItem))
+
+    def randProblem(self):
+        self.problemEntry.delete(0, END)
+        self.problemEntry.insert(0, random.choice(self.archetypeHelper.problem))
+
+    def randDrive(self):
+        self.driveEntry.delete(0, END)
+        self.driveEntry.insert(0, random.choice(self.archetypeHelper.drive))
+
+    def randPride(self):
+        self.prideEntry.delete(0, END)
+        self.prideEntry.insert(0,random.choice(self.archetypeHelper.pride))
+
+    def randAnchor(self):
+        self.anchorEntry.delete(0, END)
+        self.anchorEntry.insert(0,random.choice(self.archetypeHelper.anchor))
+
+    def randName(self):
+        self.nameEntry.delete(0,END)
+        temp = character.generator.genFromFile('names.txt')
+        self.nameEntry.insert(0, temp[:-1])
+
+    def randSong(self):
+        self.songEntry.delete(0, END)
+        temp = character.generator.genFromFile('songs.txt')
+        self.songEntry.insert(0, temp[:-1])
+
     def create_pdf(self):
         self.get_values_p3()
         pdfGenerator(self.hero)
@@ -524,7 +597,7 @@ class Window(Frame):
 
 def main():
     gui = Tk()
-    gui.geometry('1000x500')
+    gui.geometry('420x500')
     Window(gui)
     gui.mainloop()
 
