@@ -28,7 +28,7 @@ def pdfGenerator(hero):
     pdf.cell(2,10)
     pdf.cell(70, 10, f'IMIĘ: {hero.name}', border=True, fill=True)
     pdf.cell(70, 10, f'ARCHETYP: {hero.archetype}', border=True, ln=True, fill=True)
-    print(hero.name)
+
 
     # 2nd line
     pdf.set_fill_color(253, 230, 210)
