@@ -40,7 +40,6 @@ class Window(Frame):
         self.attribMindLabel = Label(self)
         self.attribMindEntry = Spinbox(self)
 
-        # self.vertSeparator = Separator(self, orient=VERTICAL)
 
         self.skillLabel = Label(self)
         self.skillSneakLabel = Label(self)
@@ -68,7 +67,6 @@ class Window(Frame):
         self.skillEmpathizeLabel = Label(self)
         self.skillEmpathizeEntry = Spinbox(self)
 
-        # self.vertSeparator2 = Separator(self, orient=VERTICAL)
 
         self.itemLabel = Label(self)
         self.itemEntry = Entry(self)
@@ -153,13 +151,7 @@ class Window(Frame):
         self.songLabel.configure(text='Ulubiona piosenka')
         self.topdfButton.configure(text='Generuj PDF')
 
-        # self.randomizeItem.configure(text='Losuj')
-        # self.randomizeProblem.configure(text='Losuj')
-        # self.randomizeDrive.configure(text='Losuj')
-        # self.randomizePride.configure(text='Losuj')
-        # self.randomizeAnchor.configure(text='Losuj')
-        # self.randomizeName.configure(text='Losuj')
-        # self.randomizeSong.configure(text='Losuj')
+
 
     def validate_attrib(self):
         attrib = int(self.attribBodyEntry.get())
@@ -172,26 +164,6 @@ class Window(Frame):
         else:
             self.nextButton1.configure(state='enabled')
 
-    # def validate_skill(self):
-    #
-    #
-    #     skill = int(self.skillSneakEntry.get())
-    #     skill += int(self.skillForceEntry.get())
-    #     skill += int(self.skillMoveEntry.get())
-    #     skill += int(self.skillTinkerEntry.get())
-    #     skill += int(self.skillProgramEntry.get())
-    #     skill += int(self.skillCalculateEntry.get())
-    #     skill += int(self.skillContactEntry.get())
-    #     skill += int(self.skillCharmEntry.get())
-    #     skill += int(self.skillLeadEntry.get())
-    #     skill += int(self.skillInvestigateEntry.get())
-    #     skill += int(self.skillComprehendEntry.get())
-    #     skill += int(self.skillEmpathizeEntry.get())
-    #
-    #     if skill != 10:
-    #         self.nextButton2.configure(state='disabled')
-    #     else:
-    #         self.nextButton2.configure(state='enabled')
 
     def show_page1(self):
         self.hide_page2()
@@ -228,7 +200,6 @@ class Window(Frame):
             command=self.validate_attrib)
 
         self.nextButton1.configure(text='Dalej', command=self.creator_page2, state='disabled')
-        # self.nextButton1.grid(row=16, column=1, pady=30, padx=10, sticky=E + N + S)
         self.nextButton1.place(x=270, y=445)
         self.validate_attrib()
 
@@ -291,15 +262,10 @@ class Window(Frame):
         self.skillEmpathizeEntry.grid(row=15, column=1, padx=10, sticky=W)
 
         self.prevButton1.configure(text='Wróć', command=self.show_page1)
-        # self.prevButton1.grid(row=16, column=0, pady=30, padx=10, sticky=W + N + S)
         self.prevButton1.place(x=10, y=445)
         self.nextButton2.configure(text="Dalej", command=self.show_page3, state='enabled')
         self.nextButton2.place(x=270, y=445)
-        # self.nextButton2.grid(row=16, column=1, pady=30, padx=10, sticky=W + N + S)
 
-
-
-        # self.validate_skill()
 
     def hide_page2(self):
         self.skillLabel.grid_forget()
@@ -331,9 +297,7 @@ class Window(Frame):
         self.nextButton2.place_forget()
 
     def creator_page2(self):
-        # self.get_values_p1()
-
-
+        self.get_values_p1()
 
         self.skillSneakEntry.set(0)
         self.skillForceEntry.set(0)
@@ -349,6 +313,9 @@ class Window(Frame):
         self.skillEmpathizeEntry.set(0)
 
         self.show_page2()
+
+        print(self.hero.archetype)
+        print(self.archetypeHelper.skills)
 
         if self.hero.archetype == 'Mól książkowy':
             self.archetypeHelper = copy(Bookworm)
@@ -366,6 +333,9 @@ class Window(Frame):
             self.archetypeHelper = copy(Troublemaker)
         elif self.hero.archetype == 'Dziwak':
             self.archetypeHelper = copy(Weirdo)
+
+        print(self.archetypeHelper.skills)
+
 
         if 'Skradanie' in self.archetypeHelper.skills:
             self.skillSneakEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
@@ -452,10 +422,8 @@ class Window(Frame):
         self.songEntry.grid(row=9, column=1, padx=10, sticky=W)
 
         self.prevButton2.configure(text='Wróć', command=self.show_page2)
-        # self.prevButton2.grid(row=10, column=0, padx=10, sticky=W)
         self.prevButton2.place(x=10, y=445)
         self.topdfButton.configure(command=self.create_pdf)
-        # self.topdfButton.grid(row=10, column=1, sticky=W)
         self.topdfButton.place(x=270, y=445)
 
         self.randomizeItem.grid(row=3, column=2, padx=0, sticky=W)
@@ -568,7 +536,6 @@ class Window(Frame):
         self.songEntry.insert(0, temp[:-1])
 
     def create_pdf(self):
-        self.get_values_p1()
         self.get_values_p2()
         self.get_values_p3()
         pdfGenerator(self.hero)
