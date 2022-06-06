@@ -354,4 +354,4 @@ def pdfGenerator(hero):
     pdf.set_text_color(0, 0, 0)
     pdf.cell(140, 10, border=True, fill=True, ln=True)
 
-    pdf.output('Karta_Postaci.pdf')
+    pdf.output(f'Karta Postaci {hero.name}.pdf')
