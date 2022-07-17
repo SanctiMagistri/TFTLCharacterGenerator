@@ -11,6 +11,7 @@ from character.classes import Hero, Kid, Bookworm, Geek, Hick, Jock, Popular, Ro
 from copy import copy
 from pdfGenerate import pdfGenerator
 
+
 class Window(Frame):
     def __init__(self,parent):
         super().__init__(parent)

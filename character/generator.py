@@ -128,18 +128,4 @@ def generate():
     tempFavSong = genFromFile('songs.txt')
     hero.favSong = tempFavSong[:-1]
 
-    # print(hero.archetype)
-    # print(hero.age)
-    # print(hero.attributes)
-    # print(hero.luckPoints)
-    # print(hero.skills)
-    # print(archetypeHelper.skills)
-    # print(hero.iconicItem)
-    # print(hero.problem)
-    # print(hero.drive)
-    # print(hero.pride)
-    # print(hero.anchor)
-    # print(hero.name)
-    # print(hero.favSong)
-
     pdfGenerator(hero)

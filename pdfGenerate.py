@@ -1,4 +1,8 @@
+import tkinter
+
 from fpdf import FPDF
+
+from tkinter import filedialog
 
 class PDF(FPDF):
     def header(self):
@@ -354,4 +358,10 @@ def pdfGenerator(hero):
     pdf.set_text_color(0, 0, 0)
     pdf.cell(140, 10, border=True, fill=True, ln=True)
 
-    pdf.output(f'Karta Postaci {hero.name}.pdf')
+
+    root = tkinter.Tk()
+    root.withdraw()
+    path = filedialog.asksaveasfilename(initialdir="/",
+                                        title="Zapisz plik")
+    if path:
+        pdf.output(f'{path}.pdf')
