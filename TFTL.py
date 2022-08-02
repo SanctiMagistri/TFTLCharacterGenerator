@@ -315,8 +315,6 @@ class Window(Frame):
 
         self.show_page2()
 
-        print(self.hero.archetype)
-        print(self.archetypeHelper.skills)
 
         if self.hero.archetype == 'Mól książkowy':
             self.archetypeHelper = copy(Bookworm)
@@ -335,7 +333,6 @@ class Window(Frame):
         elif self.hero.archetype == 'Dziwak':
             self.archetypeHelper = copy(Weirdo)
 
-        print(self.archetypeHelper.skills)
 
 
         if 'Skradanie' in self.archetypeHelper.skills:

@@ -44,12 +44,10 @@ def genSkillPoints(sum, maxSkillPoint):
 
 
 def genFromFile(file_name):
-    total_bytes = os.stat(file_name).st_size
-    random_point = random.randint(0, total_bytes)
-    file = open(file_name, encoding='utf-8')
-    file.seek(random_point)
-    file.readline()
-    return file.readline()
+    with open(file_name, encoding='utf-8') as infile:
+        lines = [line for line in infile]
+        return random.choice(lines)
+
 
 
 def generate():
