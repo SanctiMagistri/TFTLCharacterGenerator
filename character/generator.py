@@ -1,4 +1,3 @@
-import os
 import random
 from copy import copy
 from pdfGenerate import pdfGenerator
