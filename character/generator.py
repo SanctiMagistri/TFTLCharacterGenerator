@@ -4,13 +4,13 @@ from pdfGenerate import pdfGenerator
 from .classes import Hero, Bookworm, Geek, Hick, Jock, Popular, Rocker, Troublemaker, Weirdo
 
 archetype = ['Mól książkowy',
-                'Geek komputerowy',
-                'Prowincjusz',
-                'Osiłek',
-                'Popularny dzieciak',
-                'Rocker',
-                'Urwis',
-                'Dziwak']
+            'Geek komputerowy',
+            'Prowincjusz',
+            'Osiłek',
+            'Popularny dzieciak',
+            'Rocker',
+            'Urwis',
+            'Dziwak']
 
 
 def genArchetype(archetype):
