@@ -315,85 +315,18 @@ class Window(Frame):
 
         self.show_page2()
 
-
-        if self.hero.archetype == 'Mól książkowy':
-            self.archetypeHelper = copy(Bookworm)
-        elif self.hero.archetype == 'Geek komputerowy':
-            self.archetypeHelper = copy(Geek)
-        elif self.hero.archetype == 'Prowincjusz':
-            self.archetypeHelper = copy(Hick)
-        elif self.hero.archetype == 'Osiłek':
-            self.archetypeHelper = copy(Jock)
-        elif self.hero.archetype == 'Popularny dzieciak':
-            self.archetypeHelper = copy(Popular)
-        elif self.hero.archetype == 'Rocker':
-            self.archetypeHelper = copy(Rocker)
-        elif self.hero.archetype == 'Urwis':
-            self.archetypeHelper = copy(Troublemaker)
-        elif self.hero.archetype == 'Dziwak':
-            self.archetypeHelper = copy(Weirdo)
-
-
-
-        if 'Skradanie' in self.archetypeHelper.skills:
-            self.skillSneakEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillSneakEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Siła' in self.archetypeHelper.skills:
-            self.skillForceEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillForceEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Poruszanie się' in self.archetypeHelper.skills:
-            self.skillMoveEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillMoveEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Majsterkowanie' in self.archetypeHelper.skills:
-            self.skillTinkerEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillTinkerEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Programowanie' in self.archetypeHelper.skills:
-            self.skillProgramEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillProgramEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Obliczanie' in self.archetypeHelper.skills:
-            self.skillCalculateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillCalculateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Kontakt' in self.archetypeHelper.skills:
-            self.skillContactEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillContactEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Urok' in self.archetypeHelper.skills:
-            self.skillCharmEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillCharmEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Dowodzenie' in self.archetypeHelper.skills:
-            self.skillLeadEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillLeadEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Śledztwo' in self.archetypeHelper.skills:
-            self.skillInvestigateEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillInvestigateEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Zrozumienie' in self.archetypeHelper.skills:
-            self.skillComprehendEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillComprehendEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
-
-        if 'Empatia' in self.archetypeHelper.skills:
-            self.skillEmpathizeEntry.configure(from_=0, to=3, wrap=True, font=('Helvetica', 12), width=2)
-        else:
-            self.skillEmpathizeEntry.configure(from_=0, to=1, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillSneakEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillForceEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillMoveEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillTinkerEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillProgramEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillCalculateEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillContactEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillCharmEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillLeadEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillInvestigateEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillComprehendEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
+        self.skillEmpathizeEntry.configure(from_=0, to=5, wrap=True, font=('Helvetica', 12), width=2)
 
     def show_page3(self):
         self.hide_page2()
@@ -431,6 +364,23 @@ class Window(Frame):
         self.randomizeAnchor.grid(row=7, column=2, padx=0, sticky=W)
         self.randomizeName.grid(row=8, column=2, padx=0, sticky=W)
         self.randomizeSong.grid(row=9, column=2, padx=0, sticky=W)
+
+        if self.hero.archetype == 'Mól książkowy':
+            self.archetypeHelper = copy(Bookworm)
+        elif self.hero.archetype == 'Geek komputerowy':
+            self.archetypeHelper = copy(Geek)
+        elif self.hero.archetype == 'Prowincjusz':
+            self.archetypeHelper = copy(Hick)
+        elif self.hero.archetype == 'Osiłek':
+            self.archetypeHelper = copy(Jock)
+        elif self.hero.archetype == 'Popularny dzieciak':
+            self.archetypeHelper = copy(Popular)
+        elif self.hero.archetype == 'Rocker':
+            self.archetypeHelper = copy(Rocker)
+        elif self.hero.archetype == 'Urwis':
+            self.archetypeHelper = copy(Troublemaker)
+        elif self.hero.archetype == 'Dziwak':
+            self.archetypeHelper = copy(Weirdo)
 
         self.randomizeItem.configure(command=self.randItem)
         self.randomizeProblem.configure(command=self.randProblem)
