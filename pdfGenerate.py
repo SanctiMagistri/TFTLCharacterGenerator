@@ -6,8 +6,10 @@ from tkinter import filedialog
 
 class PDF(FPDF):
     def header(self):
-        # logo
-        self.image('tftl-logo.png', 40, 5, 130)
+        self.set_font('Helvetica','B', 45)
+        self.set_text_color(255,137,0)
+        self.cell(15)
+        self.cell(10, 10, 'Tales From The Loop', border=False, fill=False)
         self.ln(20)
 
 def pdfGenerator(hero):
