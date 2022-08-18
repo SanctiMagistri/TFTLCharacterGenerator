@@ -1,8 +1,6 @@
 import tkinter
-
-from fpdf import FPDF
-
 from tkinter import filedialog
+from fpdf import FPDF
 
 class PDF(FPDF):
     def header(self):
