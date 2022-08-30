@@ -365,3 +365,4 @@ def pdfGenerator(hero):
                                         title="Zapisz plik")
     if path:
         pdf.output(f'{path}.pdf')
+    root.destroy()
